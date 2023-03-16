@@ -4,6 +4,7 @@ import { MoviesList } from 'components/MoviesList/MoviesList';
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { getSearchMovie } from 'api';
+import PropTypes from 'prop-types';
 
 const Movies = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -32,3 +33,7 @@ const Movies = () => {
 };
 
 export default Movies;
+
+Movies.propTypes = {
+  name: PropTypes.string,
+}

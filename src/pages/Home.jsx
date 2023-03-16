@@ -1,6 +1,7 @@
 import { getTrandingMovies } from 'api';
 import { useEffect, useState } from 'react';
 import { MoviesList } from 'components/MoviesList/MoviesList';
+import PropTypes from 'prop-types';
 
 const useTranding = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -19,3 +20,8 @@ const useTranding = () => {
 };
 
 export default useTranding;
+
+
+useTranding.propTypes = {
+  trendingMovies: PropTypes.array,
+}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from "api";
-
+import PropTypes from 'prop-types';
 
 const Reviews = () => {
   const [movieReviews, setMovieReviews] = useState(null);
@@ -27,10 +27,15 @@ const Reviews = () => {
           ))}
         </ul>
       ) : (
-        'There is no review of this film yet'
+        'We do not have any reviews for this movie.'
       )}
     </div>
   );
 };
 
 export default Reviews;
+
+Reviews.propTypes = {
+  movieReviews: PropTypes.array,
+  movieId:PropTypes.string,
+}

@@ -2,6 +2,7 @@ import { getCast } from "api";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Actor } from "pages/MovieDetails/MovieDetails.styled";
+import PropTypes from 'prop-types';
 
 
 const Cast = () => {
@@ -37,3 +38,9 @@ const Cast = () => {
 }
 
 export default Cast;
+
+Cast.propTypes = {
+  movieCast: PropTypes.array,
+  movieId:PropTypes.string,
+
+}

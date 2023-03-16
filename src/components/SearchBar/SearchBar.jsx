@@ -1,7 +1,6 @@
-import {useState } from 'react';
+import { useState } from 'react';
 
-export const Searchbar =({ onSearch }) => {
-  
+export const Searchbar = ({ onSearch }) => {
   const [name, setName] = useState('');
 
   const handleNameCange = evn => {
@@ -18,28 +17,24 @@ export const Searchbar =({ onSearch }) => {
 
     onSearch(name);
     setName('');
-
   };
 
- 
-    return (
-      <header className="Searchbar">
-        <form onSubmit={handleSubmit} className="SearchForm">
-
-
-          <input
-            className="SearchForm-input"
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search movies"
-            onChange={handleNameCange}
-            value={name}
-          />
-                    <button type="submit" className="SearchForm-button">
-            <span className="SearchForm-button-label">Search</span>
-          </button>
-        </form>
-      </header>
-    );
-  }
+  return (
+    <header className="Searchbar">
+      <form onSubmit={handleSubmit} className="SearchForm">
+        <input
+          className="SearchForm-input"
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search movies"
+          onChange={handleNameCange}
+          value={name}
+        />
+        <button type="submit" className="SearchForm-button">
+          <span className="SearchForm-button-label">Search</span>
+        </button>
+      </form>
+    </header>
+  );
+};

@@ -1,15 +1,17 @@
-import { useParams, useLocation, Link, Outlet } from "react-router-dom";
+import { Suspense } from 'react';
+import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getDetails } from "api";
-import { BackLink } from "components/BackLink";
-import { Img, Description, Details, Info } from "./MovieDetails.styled";
+import { getDetails } from 'api';
+import { BackLink } from 'components/BackLink';
+import { Img, Description, Details, Info } from './MovieDetails.styled';
+import PropTypes from 'prop-types';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
   const location = useLocation();
-    const backLinkHref = location.state?.from ?? '/';
-    
+  const backLinkHref = location.state?.from ?? '/';
+
   useEffect(() => {
     getDetails(movieId).then(setMovie);
   }, [movieId]);
@@ -18,20 +20,16 @@ const MovieDetails = () => {
     return;
   }
 
-
-    return (<>
- 
-        <BackLink to={backLinkHref}>Go back</BackLink>
-         <Details>
+  return (
+    <>
+      <BackLink to={backLinkHref}>Go back</BackLink>
+      <Details>
         <Img
-            src={
+          src={`https://www.themoviedb.org/t/p/w500/${movie.poster_path}`}
+          alt={`${movie.title}`}
+        />
 
-              `https://www.themoviedb.org/t/p/w500/${movie.poster_path}`
-            }
-            alt={`${movie.title}`}
-          />
-       
-        <Description >
+        <Description>
           <h2>
             {movie.title} ({movie.release_date.slice(0, 4)})
           </h2>
@@ -41,8 +39,10 @@ const MovieDetails = () => {
           <h3>Genres</h3>
           <p>{movie.genres.map(genre => genre.name).join(' / ')}</p>
         </Description>
- </Details>
-              <Info >
+      </Details>
+
+
+      <Info>
         <h2>Additional information</h2>
         <ul>
           <li>
@@ -52,12 +52,17 @@ const MovieDetails = () => {
             <Link to={'reviews'}>Reviews</Link>
           </li>
         </ul>
-         <Outlet />
+        <Suspense fallback={<div>Loading subpage...</div>}>
+          <Outlet />
+        </Suspense>
       </Info>
-      {/* <Suspense fallback={<div>Loading...</div>}>
-        <Outlet />
-      </Suspense> */}
-        </>);
-}
+    </>
+  );
+};
 
 export default MovieDetails;
+
+MovieDetails.propTypes = {
+  location: PropTypes.string,
+  backLinkHref: PropTypes.string,
+}
